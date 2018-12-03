@@ -18,6 +18,11 @@ export const getArts: APIGatewayProxyHandler = async (event, context) => {
 
   return {
     statusCode: 200,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+    },
     body: JSON.stringify({
       message: urls,
     }),
