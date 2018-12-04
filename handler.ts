@@ -5,7 +5,13 @@ export const getArts: APIGatewayProxyHandler = async (event, context) => {
   const URL = "https://scrapbox.io/api/pages/art-mihirogi";
 
   const urls = await request(URL).then((response) => {
-      return response['pages'].map(json => json['image']);
+      return response['pages'].map(json => (
+          {
+            title: json['title'],
+            url: json['image']
+          }
+        )
+      );
     }
   );
 
