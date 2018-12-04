@@ -2,19 +2,12 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 
 export const getArts: APIGatewayProxyHandler = async (event, context) => {
 
-  const URL = "https://scrapbox.io/api/pages//art-mihirogi";
+  const URL = "https://scrapbox.io/api/pages/art-mihirogi";
 
-  let response;
-  await request(URL).then((data) => {
-      response = data;
+  const urls = await request(URL).then((response) => {
+      return response['pages'].map(json => json['image']);
     }
   );
-
-  let urls = [];
-  for (let value of response['pages']) {
-    urls.push(value['image'])
-  }
-
 
   return {
     statusCode: 200,
@@ -29,7 +22,7 @@ export const getArts: APIGatewayProxyHandler = async (event, context) => {
   };
 };
 
-const request = (url) => {
+const request = (url: string) => {
   return new Promise((resolve => {
       const https = require('https');
       https.get(url, res => {
