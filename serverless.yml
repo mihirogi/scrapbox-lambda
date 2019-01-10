@@ -9,6 +9,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
+  region: ap-northeast-1
 
 functions:
   getArts:
@@ -17,3 +18,4 @@ functions:
       - http:
           method: get
           path: arts
+	      cors: true
